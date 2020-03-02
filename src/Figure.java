@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public abstract class Figure {
-  //fields
+  // fields
 
   protected Point refPoint;
 
   protected Color borderColor;
 
-  //constructors
+  // constructors
 
   public Figure(Point firstPoint, Color borderColor) {
     this.refPoint = firstPoint;
@@ -22,17 +22,17 @@ public abstract class Figure {
     this.borderColor = new Color(figure.borderColor.getRGB());
   }
 
-  //methods
+  // methods
 
   public abstract void draw();
 
   public abstract void move();
 
-  public ArrayList<Point> location(){
+  public ArrayList<Point> location() {
     return new ArrayList<Point>(Arrays.asList(refPoint));
   }
 
-  //getters and setters
+  // getters and setters
 
   public Point getRefPoint() {
     return refPoint;
