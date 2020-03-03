@@ -11,6 +11,4 @@ public abstract class Figure1D extends Figure {
   public Figure1D(Figure1D figure1D) {
     super(figure1D);
   }
-
-  // methods
 }
