@@ -12,8 +12,8 @@ public class Rectangle extends Polygon {
     super(firstpoint, secondPoint, borderColor, figureColor);
   }
 
-  public Rectangle(Triangle triangle) {
-    super(triangle);
+  public Rectangle(Rectangle rectangle) {
+    super(rectangle);
   }
 
   // methods

@@ -12,8 +12,8 @@ public class Square extends Rectangle {
     super(firstpoint, secondPoint, borderColor, figureColor);
   }
 
-  public Square(Triangle triangle) {
-    super(triangle);
+  public Square(Square square) {
+    super(square);
   }
 
   // methods
