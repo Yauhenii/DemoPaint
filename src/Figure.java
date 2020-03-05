@@ -26,12 +26,6 @@ public abstract class Figure {
 
   public abstract void draw();
 
-  public abstract void move(Point newRefPoint);
-
-  public Point location() {
-    return refPoint;
-  }
-
   // getters and setters
 
   public void setRefPoint(Point refPoint) {
