@@ -26,10 +26,6 @@ public class LineSegment extends Figure1D {
     System.out.println("Drawing the line segment...");
   }
 
-  public void move(Point newRefPoint) {
-    System.out.println("Moving the line segment...");
-  }
-
   // getters and setters
 
   public Point getDefPoint() {

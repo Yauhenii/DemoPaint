@@ -23,8 +23,4 @@ public class Square extends Rectangle {
   public void draw() {
     System.out.println("Drawing the square...");
   }
-
-  public void move() {
-    System.out.println("Moving the square...");
-  }
 }

@@ -9,8 +9,8 @@ public class Polyline extends Figure1D {
 
   // constructors
 
-  public Polyline(Point firstPoint, ArrayList<LineSegment> lineSegments, Color borderColor) {
-    super(firstPoint, borderColor);
+  public Polyline(Point refPoint, ArrayList<LineSegment> lineSegments, Color borderColor) {
+    super(refPoint, borderColor);
     this.lineSegments = lineSegments;
   }
 
@@ -23,10 +23,6 @@ public class Polyline extends Figure1D {
 
   public void draw() {
     System.out.println("Drawing the polyline...");
-  }
-
-  public void move(Point newRefPoint) {
-    System.out.println("Moving the polyline...");
   }
 
   // getters and setters

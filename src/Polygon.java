@@ -30,10 +30,6 @@ public class Polygon extends Figure2D {
     System.out.println("Drawing the polygon...");
   }
 
-  public void move(Point newRefPoint) {
-    System.out.println("Moving the polygon...");
-  }
-
   // getters and setters
 
   public ArrayList<Point> getAuxiliaryPoints() {
