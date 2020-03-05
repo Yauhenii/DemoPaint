@@ -2,10 +2,10 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class Square extends Rectangle {
+public class RegularPolygon extends Polygon {
   // constructors
 
-  public Square(
+  public RegularPolygon(
       Point refPoint,
       Point defPoint,
       ArrayList<Point> auxiliaryPoints,
@@ -14,17 +14,13 @@ public class Square extends Rectangle {
     super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
 
-  public Square(Square square) {
-    super(square);
+  public RegularPolygon(RegularPolygon regularPolygon) {
+    super(regularPolygon);
   }
 
   // methods
 
   public void draw() {
-    System.out.println("Drawing the square...");
-  }
-
-  public void move() {
-    System.out.println("Moving the square...");
+    System.out.println("Drawing the regular polygon...");
   }
 }

@@ -3,10 +3,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Triangle extends Polygon {
-  // consts
-
-  public static final int TOPS_NUMBER = 3;
-
   // constructors
 
   public Triangle(
