@@ -4,12 +4,12 @@ import java.awt.Point;
 public class StraightLine extends Ray {
   // constructors
 
-  public StraightLine(Point firstPoint, Point secondPoint, Color borderColor) {
-    super(firstPoint, secondPoint, borderColor);
+  public StraightLine(Point refPoint, Point defPoint, Color borderColor) {
+    super(refPoint, defPoint, borderColor);
   }
 
-  public StraightLine(Ray ray) {
-    super(ray);
+  public StraightLine(StraightLine straightLine) {
+    super(straightLine);
   }
 
   // methods

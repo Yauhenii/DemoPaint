@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Rhombus extends Polygon {
   // consts
@@ -8,8 +9,13 @@ public class Rhombus extends Polygon {
 
   // constructors
 
-  public Rhombus(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, secondPoint, borderColor, figureColor);
+  public Rhombus(
+      Point refPoint,
+      Point defPoint,
+      ArrayList<Point> auxiliaryPoints,
+      Color borderColor,
+      Color figureColor) {
+    super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
 
   public Rhombus(Rhombus rhombus) {
@@ -20,9 +26,5 @@ public class Rhombus extends Polygon {
 
   public void draw() {
     System.out.println("Drawing the rhombus...");
-  }
-
-  public void move() {
-    System.out.println("Moving the rhombus...");
   }
 }

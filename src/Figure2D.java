@@ -10,11 +10,11 @@ public abstract class Figure2D extends Figure {
 
   private Color figureColor;
 
-  //
+  // constructor
 
-  public Figure2D(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, borderColor);
-    this.defPoint = secondPoint;
+  public Figure2D(Point refPoint, Point defPoint, Color borderColor, Color figureColor) {
+    super(refPoint, borderColor);
+    this.defPoint = defPoint;
     this.figureColor = figureColor;
   }
 
@@ -22,12 +22,6 @@ public abstract class Figure2D extends Figure {
     super(figure2D);
     this.defPoint = new Point(figure2D.defPoint);
     this.figureColor = new Color(figure2D.figureColor.getRGB());
-  }
-
-  // methods
-
-  public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(getRefPoint(), defPoint));
   }
 
   // getters and setters

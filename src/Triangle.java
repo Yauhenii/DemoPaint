@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Triangle extends Polygon {
   // consts
@@ -8,8 +9,13 @@ public class Triangle extends Polygon {
 
   // constructors
 
-  public Triangle(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, secondPoint, borderColor, figureColor);
+  public Triangle(
+      Point refPoint,
+      Point defPoint,
+      ArrayList<Point> auxiliaryPoints,
+      Color borderColor,
+      Color figureColor) {
+    super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
 
   public Triangle(Triangle triangle) {
@@ -20,9 +26,5 @@ public class Triangle extends Polygon {
 
   public void draw() {
     System.out.println("Drawing the triangle...");
-  }
-
-  public void move() {
-    System.out.println("Moving the triangle...");
   }
 }

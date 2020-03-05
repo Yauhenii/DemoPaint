@@ -3,20 +3,21 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class Polygon extends Figure2D {
-  // consts
-
-  public static final int TOPS_NUMBER = 0;
-
+public class Polygon extends Figure2D {
   // fields
 
   ArrayList<Point> auxiliaryPoints;
 
   // constructors
 
-  public Polygon(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, secondPoint, borderColor, figureColor);
-    auxiliaryPoints = new ArrayList<>();
+  public Polygon(
+      Point refPoint,
+      Point defPoint,
+      ArrayList<Point> auxiliaryPoints,
+      Color borderColor,
+      Color figureColor) {
+    super(refPoint, defPoint, borderColor, figureColor);
+    this.auxiliaryPoints = auxiliaryPoints;
   }
 
   public Polygon(Polygon polygon) {
@@ -25,14 +26,12 @@ public abstract class Polygon extends Figure2D {
 
   // methods
 
-  public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(getRefPoint(), getDefPoint()));
+  public void draw() {
+    System.out.println("Drawing the polygon...");
   }
 
-  public ArrayList<Point> extendedLocation() {
-    ArrayList<Point> result = new ArrayList<>(Arrays.asList(getRefPoint(), getDefPoint()));
-    result.addAll(auxiliaryPoints);
-    return result;
+  public void move(Point newRefPoint) {
+    System.out.println("Moving the polygon...");
   }
 
   // getters and setters

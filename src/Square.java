@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Square extends Rectangle {
   // consts
@@ -8,8 +9,13 @@ public class Square extends Rectangle {
 
   // constructors
 
-  public Square(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, secondPoint, borderColor, figureColor);
+  public Square(
+      Point refPoint,
+      Point defPoint,
+      ArrayList<Point> auxiliaryPoints,
+      Color borderColor,
+      Color figureColor) {
+    super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
 
   public Square(Square square) {

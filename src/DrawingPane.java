@@ -1,5 +1,3 @@
-
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -31,16 +29,17 @@ public class DrawingPane extends JPanel {
           @Override
           public void actionPerformed(ActionEvent arg0) {
             // TODO Auto-generated method stub
-            JPanel panel = new JPanel(){
+            JPanel panel =
+                new JPanel() {
 
-              @Override
-              public void paintComponent(Graphics g) {
-                g.setColor(new Color(65, 68, 236));
-                g.fillOval(0,0,100,50);
-              }
-            };
+                  @Override
+                  public void paintComponent(Graphics g) {
+                    g.setColor(new Color(65, 68, 236));
+                    g.fillOval(0, 0, 100, 50);
+                  }
+                };
             panel.setBounds(150, 150, 200, 200);
-//            panel.setBackground(Color.black);
+            //            panel.setBackground(Color.black);
 
             mypanels.add(panel);
             add(panel);

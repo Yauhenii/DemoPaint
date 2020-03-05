@@ -18,7 +18,7 @@ public class Oval extends Figure2D {
     System.out.println("Drawing the oval...");
   }
 
-  public void move() {
+  public void move(Point point) {
     System.out.println("Moving the oval...");
   }
 }

@@ -25,17 +25,8 @@ public class Polyline extends Figure1D {
     System.out.println("Drawing the polyline...");
   }
 
-  public void move() {
+  public void move(Point newRefPoint) {
     System.out.println("Moving the polyline...");
-  }
-
-  public ArrayList<Point> location() {
-    ArrayList<Point> resultArrayList = new ArrayList<>();
-    resultArrayList.add(getRefPoint());
-    for (LineSegment lineSegment : lineSegments) {
-      resultArrayList.add(lineSegment.location().get(1));
-    }
-    return resultArrayList;
   }
 
   // getters and setters

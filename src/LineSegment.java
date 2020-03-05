@@ -10,9 +10,9 @@ public class LineSegment extends Figure1D {
 
   // constructors
 
-  public LineSegment(Point firstPoint, Point secondPoint, Color borderColor) {
-    super(firstPoint, borderColor);
-    this.defPoint = secondPoint;
+  public LineSegment(Point refPoint, Point defPoint, Color borderColor) {
+    super(refPoint, borderColor);
+    this.defPoint = defPoint;
   }
 
   public LineSegment(LineSegment lineSegment) {
@@ -26,12 +26,8 @@ public class LineSegment extends Figure1D {
     System.out.println("Drawing the line segment...");
   }
 
-  public void move() {
+  public void move(Point newRefPoint) {
     System.out.println("Moving the line segment...");
-  }
-
-  public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(getRefPoint(), defPoint));
   }
 
   // getters and setters

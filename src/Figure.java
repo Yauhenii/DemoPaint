@@ -12,8 +12,8 @@ public abstract class Figure {
 
   // constructors
 
-  public Figure(Point firstPoint, Color borderColor) {
-    this.refPoint = firstPoint;
+  public Figure(Point refPoint, Color borderColor) {
+    this.refPoint = refPoint;
     this.borderColor = borderColor;
   }
 
@@ -26,17 +26,13 @@ public abstract class Figure {
 
   public abstract void draw();
 
-  public abstract void move();
+  public abstract void move(Point newRefPoint);
 
-  public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(refPoint));
+  public Point location() {
+    return refPoint;
   }
 
   // getters and setters
-
-  public Point getRefPoint() {
-    return refPoint;
-  }
 
   public void setRefPoint(Point refPoint) {
     this.refPoint = refPoint;

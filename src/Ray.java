@@ -4,8 +4,8 @@ import java.awt.Point;
 public class Ray extends LineSegment {
   // constructors
 
-  public Ray(Point firstPoint, Point secondPoint, Color borderColor) {
-    super(firstPoint, secondPoint, borderColor);
+  public Ray(Point refPoint, Point defPoint, Color borderColor) {
+    super(refPoint, defPoint, borderColor);
   }
 
   public Ray(Ray ray) {

@@ -1,15 +1,17 @@
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Rectangle extends Polygon {
-  // consts
-
-  public static final int TOPS_NUMBER = 4;
-
   // constructors
 
-  public Rectangle(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, secondPoint, borderColor, figureColor);
+  public Rectangle(
+      Point refPoint,
+      Point defPoint,
+      ArrayList<Point> auxiliaryPoints,
+      Color borderColor,
+      Color figureColor) {
+    super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
 
   public Rectangle(Rectangle rectangle) {
@@ -20,9 +22,5 @@ public class Rectangle extends Polygon {
 
   public void draw() {
     System.out.println("Drawing the rectangle...");
-  }
-
-  public void move() {
-    System.out.println("Moving the rectangle...");
   }
 }
