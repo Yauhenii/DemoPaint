@@ -26,11 +26,11 @@ public abstract class Polygon extends Figure2D {
   // methods
 
   public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(refPoint, defPoint));
+    return new ArrayList<Point>(Arrays.asList(getRefPoint(), getDefPoint()));
   }
 
   public ArrayList<Point> extendedLocation() {
-    ArrayList<Point> result = new ArrayList<>(Arrays.asList(refPoint, defPoint));
+    ArrayList<Point> result = new ArrayList<>(Arrays.asList(getRefPoint(), getDefPoint()));
     result.addAll(auxiliaryPoints);
     return result;
   }

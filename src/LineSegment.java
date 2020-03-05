@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class LineSegment extends Figure1D {
   // fields
 
-  protected Point defPoint;
+  private Point defPoint;
 
   // constructors
 
@@ -31,7 +31,7 @@ public class LineSegment extends Figure1D {
   }
 
   public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(refPoint, defPoint));
+    return new ArrayList<Point>(Arrays.asList(getRefPoint(), defPoint));
   }
 
   // getters and setters

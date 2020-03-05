@@ -6,9 +6,9 @@ import java.util.Arrays;
 public abstract class Figure {
   // fields
 
-  protected Point refPoint;
+  private Point refPoint;
 
-  protected Color borderColor;
+  private Color borderColor;
 
   // constructors
 

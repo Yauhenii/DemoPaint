@@ -31,7 +31,7 @@ public class Polyline extends Figure1D {
 
   public ArrayList<Point> location() {
     ArrayList<Point> resultArrayList = new ArrayList<>();
-    resultArrayList.add(refPoint);
+    resultArrayList.add(getRefPoint());
     for (LineSegment lineSegment : lineSegments) {
       resultArrayList.add(lineSegment.location().get(1));
     }

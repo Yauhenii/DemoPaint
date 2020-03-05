@@ -6,7 +6,7 @@ import java.util.Arrays;
 public abstract class Figure2D extends Figure {
   // fields
 
-  protected Point defPoint;
+  private Point defPoint;
 
   private Color figureColor;
 
@@ -27,7 +27,7 @@ public abstract class Figure2D extends Figure {
   // methods
 
   public ArrayList<Point> location() {
-    return new ArrayList<Point>(Arrays.asList(refPoint, defPoint));
+    return new ArrayList<Point>(Arrays.asList(getRefPoint(), defPoint));
   }
 
   // getters and setters
