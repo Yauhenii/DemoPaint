@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Polyline extends Figure1D {
   // fields
 
-  protected ArrayList<LineSegment> lineSegments;
+  private ArrayList<LineSegment> lineSegments;
 
   // constructors
 
