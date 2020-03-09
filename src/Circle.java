@@ -7,6 +7,8 @@ public class Circle extends Oval {
   public Circle(Point refPoint, Point defPoint, Color borderColor, Color figureColor) {
     super(refPoint, defPoint, borderColor, figureColor);
     FigureUtils.relocateDefPoint(refPoint, defPoint);
+    setRefPoint(refPoint);
+    setDefPoint(defPoint);
   }
 
   // methods

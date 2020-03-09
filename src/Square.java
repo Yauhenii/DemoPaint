@@ -12,5 +12,7 @@ public class Square extends Rectangle {
       Color figureColor) {
     super(refPoint, defPoint, borderColor, figureColor);
     FigureUtils.relocateDefPoint(refPoint,defPoint);
+    setRefPoint(refPoint);
+    setDefPoint(defPoint);
   }
 }

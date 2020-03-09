@@ -14,8 +14,8 @@ public abstract class Figure extends JPanel {
   // constructors
 
   public Figure(Point refPoint, Point defPoint, Color borderColor) {
-    this.refPoint = refPoint;
-    this.defPoint = defPoint;
+    this.refPoint = new Point(refPoint);
+    this.defPoint = new Point(defPoint);
     this.borderColor = borderColor;
 
     relocatePoints();
@@ -23,14 +23,6 @@ public abstract class Figure extends JPanel {
   }
 
   // methods
-
-  public void display() {
-    setBounds(
-        getRefPoint().x,
-        getRefPoint().y,
-        Math.abs(getDefPoint().x - getRefPoint().x),
-        Math.abs(getDefPoint().y - getRefPoint().y));
-  }
 
   private void relocatePoints() {
     if (getRefPoint().x >= getDefPoint().x) {
@@ -43,6 +35,14 @@ public abstract class Figure extends JPanel {
       getRefPoint().y = getDefPoint().y;
       getDefPoint().y = x;
     }
+  }
+
+  public void display() {
+    setBounds(
+        getRefPoint().x,
+        getRefPoint().y,
+        Math.abs(getDefPoint().x - getRefPoint().x),
+        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   // getters and setters

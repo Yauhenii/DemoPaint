@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 public class FigureMotionAdapter extends MouseMotionAdapter {
     @Override
     public void mouseDragged(MouseEvent e) {
-      e.translatePoint(e.getComponent().getLocation().x, e.getComponent().getLocation().y);
+      e.translatePoint(e.getComponent().getX(), e.getComponent().getY());
       ((JPanel) e.getSource()).setLocation(e.getX(), e.getY());
     }
 }

@@ -18,12 +18,11 @@ public class WindowApp extends JFrame {
   private JLayeredPane drawingPane;
 
   public WindowApp(){
-    // mainPanel
-    mainPanel=new JPanel();
-    mainPanel.setLayout(new BorderLayout());
-    // drawingPane
+    // main panel
+    mainPanel=new JPanel(new BorderLayout());
+    // drawing Pane
     drawingPane=new DrawingPane();
-    mainPanel.add(drawingPane,BorderLayout.NORTH);
+    mainPanel.add(drawingPane,BorderLayout.WEST);
     //window
     setWindowProperties();
   }

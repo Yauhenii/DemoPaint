@@ -15,6 +15,7 @@ public abstract class Figure2D extends Figure {
     this.figureColor = figureColor;
   }
 
+
   // getters and setters
 
   public Color getFigureColor() {

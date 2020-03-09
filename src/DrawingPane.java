@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -6,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JLayeredPane;
@@ -20,7 +23,29 @@ public class DrawingPane extends JLayeredPane {
 
   private final int WINDOW_WIDTH = 1000;
   private final int WINDOW_HEIGHT = 600;
+
+  private final HashMap<FigureType, String> twoPoints1DFiguresMap =
+      new HashMap<FigureType, String>() {
+        {
+          put(FigureType.LINE_SEGMENT, "LineSegment");
+          put(FigureType.RAY, "Ray");
+          put(FigureType.STRAIGHT_LINE, "StraightLine");
+        }
+      };
+
+  private final HashMap<FigureType, String> twoPoints2DFiguresMap =
+      new HashMap<FigureType, String>() {
+        {
+          put(FigureType.OVAL, "Oval");
+          put(FigureType.CIRCLE, "Circle");
+          put(FigureType.RHOMBUS, "Rhombus");
+          put(FigureType.RECTANGLE, "Rectangle");
+          put(FigureType.SQUARE, "Square");
+        }
+      };
+
   // fields
+
   enum FigureType {
     POLYLINE,
     LINE_SEGMENT,
@@ -38,6 +63,8 @@ public class DrawingPane extends JLayeredPane {
 
   private ArrayList<JButton> figureButtons;
 
+  private JPanel figuresPanel;
+
   private JButton borderColorButton;
   private JButton figureColorButton;
   private JButton deleteFigureButton;
@@ -45,7 +72,6 @@ public class DrawingPane extends JLayeredPane {
   private Color curBorderColor = new Color(236, 103, 81);
   private Color curFigureColor = new Color(10, 100, 100);
 
-  private JPanel figuresPanel;
 
   ArrayList<Point> clickedPoints;
 
@@ -55,7 +81,6 @@ public class DrawingPane extends JLayeredPane {
   // constructors
 
   public DrawingPane() {
-    // figuresPanel
     initToolsPanelButtons();
     initFiguresPanel();
     initAdapters();
@@ -65,135 +90,133 @@ public class DrawingPane extends JLayeredPane {
     setLayout(null);
     setVisible(true);
 
-    ActionListener twoPointsFigureListener= new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (clickedPoints != null) {
-          Figure oval =
-              new Oval(
-                  clickedPoints.get(0), clickedPoints.get(1), curBorderColor, curFigureColor);
-          add(oval);
-          oval.display();
-          oval.addMouseListener(mouseAdapter);
-          oval.addMouseMotionListener(motionAdapter);
-          repaint();
-          clickedPoints = null;
-        } else {
-          clickedPoints = new ArrayList<>();
-        }
-      }
-    };
+    for (HashMap.Entry<FigureType, String> entry : twoPoints2DFiguresMap.entrySet()) {
+      figureButtons
+          .get(entry.getKey().ordinal())
+          .addActionListener(
+              new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                  if (clickedPoints != null) {
+                    try {
+                      Constructor constructor =
+                          Class.forName(entry.getValue())
+                              .getConstructor(Point.class, Point.class, Color.class, Color.class);
+                      Figure figure =
+                          (Figure)
+                              constructor.newInstance(
+                                  clickedPoints.get(0),
+                                  clickedPoints.get(1),
+                                  curBorderColor,
+                                  curFigureColor);
+                      add(figure);
+                      figure.display();
+                      figure.addMouseListener(mouseAdapter);
+                      figure.addMouseMotionListener(motionAdapter);
+                      repaint();
+                      clickedPoints = null;
+                    } catch (Exception exception) {
+                      System.out.println(exception.getStackTrace());
+                    }
+                  } else {
+                    clickedPoints = new ArrayList<>();
+                  }
+                }
+              });
+    }
 
-    figureButtons.get(FigureType.OVAL.ordinal()).addActionListener(twoPointsFigureListener);
+    for (HashMap.Entry<FigureType, String> entry : twoPoints1DFiguresMap.entrySet()) {
+      figureButtons
+          .get(entry.getKey().ordinal())
+          .addActionListener(
+              new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
+                  if (clickedPoints != null) {
+                    try {
+                      Constructor constructor =
+                          Class.forName(entry.getValue())
+                              .getConstructor(Point.class, Point.class, Color.class);
+                      Figure figure =
+                          (Figure)
+                              constructor.newInstance(
+                                  clickedPoints.get(0), clickedPoints.get(1), curBorderColor);
+                      add(figure);
+                      figure.display();
+                      figure.addMouseListener(mouseAdapter);
+                      figure.addMouseMotionListener(motionAdapter);
+                      repaint();
+                      clickedPoints = null;
+                    } catch (Exception exception) {
+                      System.out.println(exception.getStackTrace());
+                    }
+                  } else {
+                    clickedPoints = new ArrayList<>();
+                  }
+                }
+              });
+    }
 
-    figureButtons.get(FigureType.CIRCLE.ordinal()).addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            if (clickedPoints != null) {
-              Figure circle =
-                  new Circle(
-                      clickedPoints.get(0), clickedPoints.get(1), curBorderColor, curFigureColor);
-              add(circle);
-              circle.display();
-              circle.addMouseListener(mouseAdapter);
-              circle.addMouseMotionListener(motionAdapter);
-              repaint();
-              clickedPoints = null;
-            } else {
-              clickedPoints = new ArrayList<>();
-            }
-          }
-        });
+    for (HashMap.Entry<FigureType, String> entry : twoPoints2DFiguresMap.entrySet()) {}
 
-    figureButtons.get(FigureType.RECTANGLE.ordinal()).addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            if (clickedPoints != null) {
-              Figure rectangle =
-                  new Rectangle(
-                      clickedPoints.get(0), clickedPoints.get(1), curBorderColor, curFigureColor);
-              add(rectangle);
-              rectangle.display();
-              rectangle.addMouseListener(mouseAdapter);
-              rectangle.addMouseMotionListener(motionAdapter);
-              repaint();
-              clickedPoints = null;
-            } else {
-              clickedPoints = new ArrayList<>();
-            }
-          }
-        });
+    figureButtons
+        .get(FigureType.POLYGON.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                JButton button = (JButton) event.getSource();
+                if (clickedPoints != null) {
+                  ArrayList<Point> rectPoints =
+                      FigureUtils.getСircumscribedRectPoints(clickedPoints);
+                  Figure polygon =
+                      new Polygon(
+                          rectPoints.get(0),
+                          rectPoints.get(1),
+                          clickedPoints,
+                          curBorderColor,
+                          curFigureColor);
+                  add(polygon);
+                  polygon.display();
+                  polygon.addMouseListener(mouseAdapter);
+                  polygon.addMouseMotionListener(motionAdapter);
+                  repaint();
+                  clickedPoints = null;
+                  button.setForeground(Color.BLACK);
+                } else {
+                  clickedPoints = new ArrayList<>();
+                  button.setForeground(Color.RED);
+                }
+              }
+            });
 
-    figureButtons.get(FigureType.RHOMBUS.ordinal()).addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            if (clickedPoints != null) {
-              Figure rhombus =
-                  new Rhombus(
-                      clickedPoints.get(0), clickedPoints.get(1), curBorderColor, curFigureColor);
-              add(rhombus);
-              rhombus.display();
-              rhombus.addMouseListener(mouseAdapter);
-              rhombus.addMouseMotionListener(motionAdapter);
-              repaint();
-              clickedPoints = null;
-            } else {
-              clickedPoints = new ArrayList<>();
-            }
-          }
-        });
-
-    figureButtons.get(FigureType.LINE_SEGMENT.ordinal()).addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            if (clickedPoints != null) {
-              Figure lineSegment =
-                  new LineSegment(
-                      clickedPoints.get(0), clickedPoints.get(1), curBorderColor);
-              add(lineSegment);
-              lineSegment.display();
-              lineSegment.addMouseListener(mouseAdapter);
-              lineSegment.addMouseMotionListener(motionAdapter);
-              repaint();
-              clickedPoints = null;
-            } else {
-              clickedPoints = new ArrayList<>();
-            }
-          }
-        });
-
-    figureButtons.get(FigureType.POLYGON.ordinal()).addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent event) {
-            JButton button=(JButton)event.getSource();
-            if (clickedPoints != null) {
-              ArrayList<Point> rectPoints = FigureUtils.getСircumscribedRectPoints(clickedPoints);
-              Figure polygon =
-                  new Polygon(
-                      rectPoints.get(0),
-                      rectPoints.get(1),
-                      clickedPoints,
-                      curBorderColor,
-                      curFigureColor);
-              add(polygon);
-              polygon.display();
-              polygon.addMouseListener(mouseAdapter);
-              polygon.addMouseMotionListener(motionAdapter);
-              repaint();
-              clickedPoints = null;
-              button.setForeground(Color.BLACK);
-            } else {
-              clickedPoints = new ArrayList<>();
-              button.setForeground(Color.RED);
-            }
-          }
-        });
+    figureButtons
+        .get(FigureType.POLYLINE.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                JButton button = (JButton) event.getSource();
+                if (clickedPoints != null) {
+                  ArrayList<Point> rectPoints =
+                      FigureUtils.getСircumscribedRectPoints(clickedPoints);
+                  Figure polyline =
+                      new Polyline(
+                          rectPoints.get(0), rectPoints.get(1), clickedPoints, curBorderColor);
+                  add(polyline);
+                  polyline.display();
+                  polyline.addMouseListener(mouseAdapter);
+                  polyline.addMouseMotionListener(motionAdapter);
+                  repaint();
+                  clickedPoints = null;
+                  button.setForeground(Color.BLACK);
+                } else {
+                  clickedPoints = new ArrayList<>();
+                  button.setForeground(Color.RED);
+                }
+              }
+            });
 
     borderColorButton.addActionListener(
         new ActionListener() {
@@ -222,17 +245,21 @@ public class DrawingPane extends JLayeredPane {
         });
   }
 
+  private void initDrawingPanel() {
+
+  }
+
   private void initAdapters() {
-    motionAdapter=new FigureMotionAdapter();
-    mouseAdapter=new FigureMouseAdapter(this);
+    motionAdapter = new FigureMotionAdapter();
+    mouseAdapter = new FigureMouseAdapter(this);
   }
 
   public void initFiguresPanel() {
-    figureButtons=new ArrayList<>();
+    figureButtons = new ArrayList<>();
     figuresPanel = new JPanel(new GridLayout(FIGURES_PANEL_ROWS_NUM, FIGURES_PANEL_COLS_NUM));
     JButton figureButton;
-    for(FigureType figureType : FigureType.values()){
-      figureButton=new JButton(figureType.name());
+    for (FigureType figureType : FigureType.values()) {
+      figureButton = new JButton(figureType.name());
       figuresPanel.add(figureButton);
       figureButtons.add(figureButton);
     }
@@ -255,5 +282,3 @@ public class DrawingPane extends JLayeredPane {
     figureColorButton.setForeground(curFigureColor);
   }
 }
-
-
