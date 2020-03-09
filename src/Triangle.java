@@ -13,14 +13,4 @@ public class Triangle extends Polygon {
       Color figureColor) {
     super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
-
-  public Triangle(Triangle triangle) {
-    super(triangle);
-  }
-
-  // methods
-
-  public void draw() {
-    System.out.println("Drawing the triangle...");
-  }
 }

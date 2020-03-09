@@ -1,38 +1,28 @@
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LineSegment extends Figure1D {
-  // fields
-
-  private Point defPoint;
-
   // constructors
 
   public LineSegment(Point refPoint, Point defPoint, Color borderColor) {
-    super(refPoint, borderColor);
-    this.defPoint = defPoint;
-  }
-
-  public LineSegment(LineSegment lineSegment) {
-    super(lineSegment);
-    this.defPoint = new Point(lineSegment.defPoint);
+    super(refPoint, defPoint, borderColor);
   }
 
   // methods
 
-  public void draw() {
-    System.out.println("Drawing the line segment...");
-  }
-
-  // getters and setters
-
-  public Point getDefPoint() {
-    return defPoint;
-  }
-
-  public void setDefPoint(Point defPoint) {
-    this.defPoint = defPoint;
+  @Override
+  protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    g.setColor(getBorderColor());
+    g.drawLine(0,0,getDefPoint().x - getRefPoint().x,getDefPoint().y - getRefPoint().y);
+    g.setColor(getBorderColor());
+    g.drawRect(
+        0,
+        0,
+        Math.abs(getDefPoint().x - getRefPoint().x),
+        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 }

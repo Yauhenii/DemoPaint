@@ -14,10 +14,6 @@ public class RegularPolygon extends Polygon {
     super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
 
-  public RegularPolygon(RegularPolygon regularPolygon) {
-    super(regularPolygon);
-  }
-
   // methods
 
   public void draw() {

@@ -4,11 +4,11 @@ import java.awt.Point;
 public class Circle extends Oval {
   // constructors
 
-  public Circle(Point firstpoint, Point secondPoint, Color borderColor, Color figureColor) {
-    super(firstpoint, secondPoint, borderColor, figureColor);
+  public Circle(Point refPoint, Point defPoint, Color borderColor, Color figureColor) {
+    super(refPoint, defPoint, borderColor, figureColor);
+    FigureUtils.relocateDefPoint(refPoint, defPoint);
   }
 
-  public Circle(Circle circle) {
-    super(circle);
-  }
+  // methods
+
 }

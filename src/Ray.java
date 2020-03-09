@@ -8,10 +8,6 @@ public class Ray extends LineSegment {
     super(refPoint, defPoint, borderColor);
   }
 
-  public Ray(Ray ray) {
-    super(ray);
-  }
-
   // methods
 
   public void draw() {

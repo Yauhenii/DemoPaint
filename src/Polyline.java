@@ -10,13 +10,8 @@ public class Polyline extends Figure1D {
   // constructors
 
   public Polyline(Point refPoint, ArrayList<LineSegment> lineSegments, Color borderColor) {
-    super(refPoint, borderColor);
+    super(refPoint, null,  borderColor);
     this.lineSegments = lineSegments;
-  }
-
-  public Polyline(Polyline polyline) {
-    super(polyline);
-    this.lineSegments = new ArrayList<>(polyline.lineSegments);
   }
 
   // methods

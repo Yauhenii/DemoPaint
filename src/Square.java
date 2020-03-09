@@ -8,19 +8,9 @@ public class Square extends Rectangle {
   public Square(
       Point refPoint,
       Point defPoint,
-      ArrayList<Point> auxiliaryPoints,
       Color borderColor,
       Color figureColor) {
-    super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
-  }
-
-  public Square(Square square) {
-    super(square);
-  }
-
-  // methods
-
-  public void draw() {
-    System.out.println("Drawing the square...");
+    super(refPoint, defPoint, borderColor, figureColor);
+    FigureUtils.relocateDefPoint(refPoint,defPoint);
   }
 }

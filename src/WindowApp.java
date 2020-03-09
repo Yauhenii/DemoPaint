@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -13,7 +15,7 @@ public class WindowApp extends JFrame {
   //fields
 
   private JPanel mainPanel;
-  private JPanel drawingPane;
+  private JLayeredPane drawingPane;
 
   public WindowApp(){
     // mainPanel

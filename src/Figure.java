@@ -1,35 +1,66 @@
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Arrays;
+import javax.swing.JPanel;
 
-public abstract class Figure {
+public abstract class Figure extends JPanel {
   // fields
 
   private Point refPoint;
+
+  private Point defPoint;
 
   private Color borderColor;
 
   // constructors
 
-  public Figure(Point refPoint, Color borderColor) {
+  public Figure(Point refPoint, Point defPoint, Color borderColor) {
     this.refPoint = refPoint;
+    this.defPoint = defPoint;
     this.borderColor = borderColor;
-  }
 
-  public Figure(Figure figure) {
-    this.refPoint = new Point(figure.refPoint);
-    this.borderColor = new Color(figure.borderColor.getRGB());
+    relocatePoints();
+    setOpaque(false);
   }
 
   // methods
 
-  public abstract void draw();
+  public void display() {
+    setBounds(
+        getRefPoint().x,
+        getRefPoint().y,
+        Math.abs(getDefPoint().x - getRefPoint().x),
+        Math.abs(getDefPoint().y - getRefPoint().y));
+  }
+
+  private void relocatePoints() {
+    if (getRefPoint().x >= getDefPoint().x) {
+      int x = getRefPoint().x;
+      getRefPoint().x = getDefPoint().x;
+      getDefPoint().x = x;
+    }
+    if (getRefPoint().y >= getDefPoint().y) {
+      int x = getRefPoint().y;
+      getRefPoint().y = getDefPoint().y;
+      getDefPoint().y = x;
+    }
+  }
 
   // getters and setters
 
+  public Point getRefPoint() {
+    return refPoint;
+  }
+
   public void setRefPoint(Point refPoint) {
     this.refPoint = refPoint;
+  }
+
+  public Point getDefPoint() {
+    return defPoint;
+  }
+
+  public void setDefPoint(Point defPoint) {
+    this.defPoint = defPoint;
   }
 
   public Color getBorderColor() {
