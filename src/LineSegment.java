@@ -12,8 +12,8 @@ public class LineSegment extends Figure1D {
 
   public LineSegment(Point firstPoint, Point secondPoint, Color borderColor) {
     super(firstPoint, secondPoint, borderColor);
-    this.firstPoint=firstPoint;
-    this.secondPoint=secondPoint;
+    this.firstPoint = firstPoint;
+    this.secondPoint = secondPoint;
   }
 
   // methods
@@ -22,7 +22,11 @@ public class LineSegment extends Figure1D {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.setColor(getBorderColor());
-    g.drawLine(firstPoint.x-getRefPoint().x, firstPoint.y-getRefPoint().y, secondPoint.x-getRefPoint().x, secondPoint.y-getRefPoint().y);
+    g.drawLine(
+        firstPoint.x - getRefPoint().x,
+        firstPoint.y - getRefPoint().y,
+        secondPoint.x - getRefPoint().x,
+        secondPoint.y - getRefPoint().y);
     g.setColor(getBorderColor());
     g.drawRect(
         0,
@@ -42,16 +46,8 @@ public class LineSegment extends Figure1D {
     return firstPoint;
   }
 
-  public void setFirstPoint(Point firstPoint) {
-    this.firstPoint = firstPoint;
-  }
-
   public Point getSecondPoint() {
     return secondPoint;
-  }
-
-  public void setSecondPoint(Point secondPoint) {
-    this.secondPoint = secondPoint;
   }
 }
 

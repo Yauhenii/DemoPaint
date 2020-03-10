@@ -1,12 +1,29 @@
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class FigureMouseAdapter extends MouseAdapter {
+  // fields
+
+  DrawingPane owner;
+
+  //constructors
+
+
+  public FigureMouseAdapter(DrawingPane owner) {
+    this.owner = owner;
+  }
+
+  //methods
   @Override
   public void mousePressed(MouseEvent e) {
     super.mouseClicked(e);
-//    JLayeredPane layeredPane = (JLayeredPane) e.getComponent().getParent();
-//    layeredPane.setLayer((JPanel) e.getSource(), 3, 1);
+    Figure figure=(Figure)e.getComponent();
+    if (owner.getClickedPoints() != null) {
+      owner.getClickedPoints().add(new Point(figure.getRefPoint().x+e.getX(), figure.getRefPoint().y+e.getY()));
+    }
+
   }
 
   @Override

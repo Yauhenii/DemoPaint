@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,8 +46,8 @@ public class DrawingPane extends JLayeredPane {
 
   private final int DEFAULT_VERTEX_NUMBER=6;
 
-  private final int WINDOW_WIDTH = 1000;
-  private final int WINDOW_HEIGHT = 600;
+  private final int WINDOW_WIDTH = 800;
+  private final int WINDOW_HEIGHT = 800;
 
   private final HashMap<FigureType, String> twoPoints1DFiguresMap =
       new HashMap<FigureType, String>() {
@@ -74,6 +75,10 @@ public class DrawingPane extends JLayeredPane {
 
   private Color curBorderColor = new Color(10, 100, 100);
   private Color curFigureColor = new Color(236, 103, 81);
+  private int xCurr;
+  private int yCurr;
+  private int xPrev;
+  private int yPrev;
 
   ArrayList<Point> clickedPoints;
 
@@ -108,7 +113,7 @@ public class DrawingPane extends JLayeredPane {
     toolButtons.get(ToolsType.FIGURE_COLOR.ordinal()).setForeground(curBorderColor);
     // mouse
     motionAdapter = new FigureMotionAdapter();
-    mouseAdapter = new FigureMouseAdapter();
+    mouseAdapter = new FigureMouseAdapter(this);
     //
     setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
     setLayout(null);
@@ -377,16 +382,40 @@ public class DrawingPane extends JLayeredPane {
           @Override
           public void mousePressed(MouseEvent e) {
             if (clickedPoints != null) {
+              if(xPrev==0 && yPrev==0){
+                xPrev=e.getX();
+                yPrev=e.getY();
+              }
               clickedPoints.add(new Point(e.getX(), e.getY()));
             }
           }
         });
+    addMouseMotionListener(new MouseMotionAdapter() {
+      @Override
+      public void mouseMoved(MouseEvent e) {
+        super.mouseMoved(e);
+        xCurr=e.getX();
+        yCurr=e.getY();
+        repaint();
+      }
+    });
   }
+
+//  @Override
+//  protected void paintComponent(Graphics g) {
+//    super.paintComponent(g);
+//    if(xPrev!=0 && yPrev!=0){
+//      g.drawRect(xPrev,yPrev,xCurr,yCurr);
+//    }
+//  }
 
   // getters and setters
 
-
   public Figure getSelectedFigure() {
     return selectedFigure;
+  }
+
+  public ArrayList<Point> getClickedPoints() {
+    return clickedPoints;
   }
 }

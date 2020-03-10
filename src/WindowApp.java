@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -39,7 +40,25 @@ public class WindowApp extends JFrame {
     SQUARE
   }
 
-  public static final int WINDOW_WIDTH=1400;
+  private final HashMap<FigureType, String> figuresNamesMap =
+      new HashMap<FigureType, String>() {
+        {
+          put(FigureType.POLYLINE, "Polyline");
+          put(FigureType.LINE_SEGMENT, "Line segment");
+          put(FigureType.RAY, "Ray");
+          put(FigureType.STRAIGHT_LINE, "Straight line");
+          put(FigureType.OVAL, "Oval");
+          put(FigureType.CIRCLE, "Circle");
+          put(FigureType.POLYGON, "Polygon");
+          put(FigureType.REGULAR_POLYGON, "Regular polygon");
+          put(FigureType.RHOMBUS, "Rhombus");
+          put(FigureType.TRIANGLE, "Triangle");
+          put(FigureType.RECTANGLE, "Rectangle");
+          put(FigureType.SQUARE, "Square");
+        }
+      };
+
+  public static final int WINDOW_WIDTH=1200;
   public static final int WINDOW_HEIGHT=800;
 
   private final int FIGURES_PANEL_ROWS_NUM = 8;
@@ -84,7 +103,7 @@ public class WindowApp extends JFrame {
     figureButtons = new ArrayList<>();
     JButton figureButton;
     for (FigureType figureType : FigureType.values()) {
-      figureButton = new JButton(figureType.name());
+      figureButton = new JButton(figuresNamesMap.get(figureType));
       figuresToolsPanel.add(figureButton);
       figureButtons.add(figureButton);
     }
@@ -107,7 +126,7 @@ public class WindowApp extends JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setResizable(false);
     setContentPane(mainPanel);
-    setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+//    setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
   }
 
 }
