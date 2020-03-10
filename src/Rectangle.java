@@ -25,4 +25,8 @@ public class Rectangle extends Polygon {
     return auxiliaryPoints;
   }
 
+  @Override
+  public String toString() {
+    return "Rectangle";
+  }
 }

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 
 public class Ray extends LineSegment {
@@ -8,9 +9,4 @@ public class Ray extends LineSegment {
     super(refPoint, defPoint, borderColor);
   }
 
-  // methods
-
-  public void draw() {
-    System.out.println("Drawing the ray...");
-  }
 }

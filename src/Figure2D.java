@@ -25,4 +25,5 @@ public abstract class Figure2D extends Figure {
   public void setFigureColor(Color figureColor) {
     this.figureColor = figureColor;
   }
+
 }

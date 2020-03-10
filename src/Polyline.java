@@ -60,4 +60,9 @@ public class Polyline extends Figure1D {
       }
     }
   }
+
+  @Override
+  public String toString() {
+    return "Polyline";
+  }
 }

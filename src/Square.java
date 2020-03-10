@@ -11,8 +11,13 @@ public class Square extends Rectangle {
       Color borderColor,
       Color figureColor) {
     super(refPoint, defPoint, borderColor, figureColor);
-    FigureUtils.relocateDefPoint(refPoint,defPoint);
-    setRefPoint(refPoint);
-    setDefPoint(defPoint);
+    FigureUtils.relocateDefPoint(getRefPoint(),getDefPoint());
+  }
+
+  // methods
+
+  @Override
+  public String toString() {
+    return "Square";
   }
 }

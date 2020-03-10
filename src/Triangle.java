@@ -13,4 +13,12 @@ public class Triangle extends Polygon {
       Color figureColor) {
     super(refPoint, defPoint, auxiliaryPoints, borderColor, figureColor);
   }
+
+  // methods
+
+
+  @Override
+  public String toString() {
+    return "Triangle";
+  }
 }

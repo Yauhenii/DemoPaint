@@ -27,9 +27,9 @@ public class Polygon extends Figure2D {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.setColor(getFigureColor());
-    g.fillPolygon(x, y, size);
     g.setColor(getBorderColor());
+    g.fillPolygon(x, y, size);
+    g.setColor(getFigureColor());
     g.drawRect(
         0,
         0,
@@ -60,5 +60,10 @@ public class Polygon extends Figure2D {
         y[i] = auxiliaryPoints.get(i).y - getRefPoint().y;
       }
     }
+  }
+
+  @Override
+  public String toString() {
+    return "Polygon";
   }
 }

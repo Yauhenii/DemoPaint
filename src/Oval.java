@@ -14,17 +14,22 @@ public class Oval extends Figure2D {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
-    g.setColor(getFigureColor());
+    g.setColor(getBorderColor());
     g.fillOval(
         0,
         0,
         Math.abs(getDefPoint().x - getRefPoint().x),
         Math.abs(getDefPoint().y - getRefPoint().y));
-    g.setColor(getBorderColor());
+    g.setColor(getFigureColor());
     g.drawRect(
         0,
         0,
         Math.abs(getDefPoint().x - getRefPoint().x),
         Math.abs(getDefPoint().y - getRefPoint().y));
+  }
+
+  @Override
+  public String toString() {
+    return "Oval";
   }
 }

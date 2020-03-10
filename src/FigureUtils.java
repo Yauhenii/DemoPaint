@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class FigureUtils {
+  // methods
   public static ArrayList<Point> getСircumscribedRectPoints(ArrayList<Point> points) {
     ArrayList<Point> rectPoints = new ArrayList<>();
 

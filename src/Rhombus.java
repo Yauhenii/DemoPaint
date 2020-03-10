@@ -24,4 +24,9 @@ public class Rhombus extends Polygon {
     auxiliaryPoints.add(new Point(refPoint.x, refPoint.y + dY / 2));
     return auxiliaryPoints;
   }
+
+  @Override
+  public String toString() {
+    return "Rhombus";
+  }
 }

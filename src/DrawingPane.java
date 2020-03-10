@@ -1,7 +1,6 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,16 +9,41 @@ import java.awt.event.MouseEvent;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class DrawingPane extends JLayeredPane {
   // consts
 
-  private final int FIGURES_PANEL_ROWS_NUM = 7;
-  private final int FIGURES_PANEL_COLS_NUM = 2;
+  enum ToolsType {
+    DELETE,
+    BORDER_COLOR,
+    FIGURE_COLOR,
+    VERTEX
+  }
+
+  enum FigureType {
+    POLYLINE,
+    LINE_SEGMENT,
+    RAY,
+    STRAIGHT_LINE,
+    OVAL,
+    CIRCLE,
+    POLYGON,
+    REGULAR_POLYGON,
+    RHOMBUS,
+    TRIANGLE,
+    RECTANGLE,
+    SQUARE
+  }
+
+  private final int DEFAULT_VERTEX_NUMBER=6;
 
   private final int WINDOW_WIDTH = 1000;
   private final int WINDOW_HEIGHT = 600;
@@ -46,45 +70,45 @@ public class DrawingPane extends JLayeredPane {
 
   // fields
 
-  enum FigureType {
-    POLYLINE,
-    LINE_SEGMENT,
-    RAY,
-    STRAIGHT_LINE,
-    OVAL,
-    CIRCLE,
-    POLYGON,
-    REGULAR_POLYGON,
-    RHOMBUS,
-    TRIANGLE,
-    RECTANGLE,
-    SQUARE
-  }
+  private int vertexNum=DEFAULT_VERTEX_NUMBER;
 
-  private ArrayList<JButton> figureButtons;
-
-  private JPanel figuresPanel;
-
-  private JButton borderColorButton;
-  private JButton figureColorButton;
-  private JButton deleteFigureButton;
-
-  private Color curBorderColor = new Color(236, 103, 81);
-  private Color curFigureColor = new Color(10, 100, 100);
-
+  private Color curBorderColor = new Color(10, 100, 100);
+  private Color curFigureColor = new Color(236, 103, 81);
 
   ArrayList<Point> clickedPoints;
 
   FigureMotionAdapter motionAdapter;
   FigureMouseAdapter mouseAdapter;
 
+  private ArrayList<JButton> figureButtons;
+  private ArrayList<JButton> toolButtons;
+  private JList<Figure> figureJList;
+  private DefaultListModel<Figure> figureJListModel;
+
+  private Figure selectedFigure; // for moving selected figure
+
+  private WindowApp owner;
+
   // constructors
 
-  public DrawingPane() {
-    initToolsPanelButtons();
-    initFiguresPanel();
-    initAdapters();
-
+  public DrawingPane(
+      WindowApp owner,
+      ArrayList<JButton> figureButtonsList,
+      ArrayList<JButton> toolButtonsList,
+      JList<Figure> jList) {
+    // Window app
+    this.owner=owner;
+    // Jlist
+    figureJList = jList;
+    figureJListModel = (DefaultListModel) figureJList.getModel();
+    // buttons
+    figureButtons = figureButtonsList;
+    toolButtons = toolButtonsList;
+    toolButtons.get(ToolsType.BORDER_COLOR.ordinal()).setForeground(curFigureColor);
+    toolButtons.get(ToolsType.FIGURE_COLOR.ordinal()).setForeground(curBorderColor);
+    // mouse
+    motionAdapter = new FigureMotionAdapter();
+    mouseAdapter = new FigureMouseAdapter();
     //
     setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
     setLayout(null);
@@ -110,6 +134,7 @@ public class DrawingPane extends JLayeredPane {
                                   curBorderColor,
                                   curFigureColor);
                       add(figure);
+                      figureJListModel.addElement(figure);
                       figure.display();
                       figure.addMouseListener(mouseAdapter);
                       figure.addMouseMotionListener(motionAdapter);
@@ -143,6 +168,7 @@ public class DrawingPane extends JLayeredPane {
                               constructor.newInstance(
                                   clickedPoints.get(0), clickedPoints.get(1), curBorderColor);
                       add(figure);
+                      figureJListModel.addElement(figure);
                       figure.display();
                       figure.addMouseListener(mouseAdapter);
                       figure.addMouseMotionListener(motionAdapter);
@@ -178,6 +204,7 @@ public class DrawingPane extends JLayeredPane {
                           curBorderColor,
                           curFigureColor);
                   add(polygon);
+                  figureJListModel.addElement(polygon);
                   polygon.display();
                   polygon.addMouseListener(mouseAdapter);
                   polygon.addMouseMotionListener(motionAdapter);
@@ -187,6 +214,65 @@ public class DrawingPane extends JLayeredPane {
                 } else {
                   clickedPoints = new ArrayList<>();
                   button.setForeground(Color.RED);
+                }
+              }
+            });
+    figureButtons
+        .get(FigureType.TRIANGLE.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                JButton button = (JButton) event.getSource();
+                if (clickedPoints != null) {
+                  ArrayList<Point> rectPoints =
+                      FigureUtils.getСircumscribedRectPoints(clickedPoints);
+                  Figure triangle =
+                      new Triangle(
+                          rectPoints.get(0),
+                          rectPoints.get(1),
+                          clickedPoints,
+                          curBorderColor,
+                          curFigureColor);
+                  add(triangle);
+                  figureJListModel.addElement(triangle);
+                  triangle.display();
+                  triangle.addMouseListener(mouseAdapter);
+                  triangle.addMouseMotionListener(motionAdapter);
+                  repaint();
+                  clickedPoints = null;
+                  button.setForeground(Color.BLACK);
+                } else {
+                  clickedPoints = new ArrayList<>();
+                  button.setForeground(Color.RED);
+                }
+              }
+            });
+
+    figureButtons
+        .get(FigureType.REGULAR_POLYGON.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                JButton button = (JButton) event.getSource();
+                if (clickedPoints != null) {
+                  Figure regularPolygon =
+                      new RegularPolygon(
+                          clickedPoints.get(0),
+                          clickedPoints.get(1),
+                          vertexNum,
+                          curBorderColor,
+                          curFigureColor);
+                  add(regularPolygon);
+                  figureJListModel.addElement(regularPolygon);
+                  regularPolygon.display();
+                  regularPolygon.addMouseListener(mouseAdapter);
+                  regularPolygon.addMouseMotionListener(motionAdapter);
+                  repaint();
+                  clickedPoints = null;
+                } else {
+                  clickedPoints = new ArrayList<>();
                 }
               }
             });
@@ -205,6 +291,7 @@ public class DrawingPane extends JLayeredPane {
                       new Polyline(
                           rectPoints.get(0), rectPoints.get(1), clickedPoints, curBorderColor);
                   add(polyline);
+                  figureJListModel.addElement(polyline);
                   polyline.display();
                   polyline.addMouseListener(mouseAdapter);
                   polyline.addMouseMotionListener(motionAdapter);
@@ -218,22 +305,73 @@ public class DrawingPane extends JLayeredPane {
               }
             });
 
-    borderColorButton.addActionListener(
-        new ActionListener() {
+    toolButtons
+        .get(ToolsType.DELETE.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                int i = figureJList.getSelectedIndex();
+                if (i != -1) {
+                  Figure figure = figureJList.getSelectedValue();
+                  figureJListModel.remove(i);
+                  remove(figure);
+                  repaint();
+                }
+              }
+            });
+    toolButtons
+        .get(ToolsType.BORDER_COLOR.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                curFigureColor =
+                    JColorChooser.showDialog(null, "Choose border color", curFigureColor);
+                ((JButton) e.getSource()).setForeground(curFigureColor);
+              }
+            });
+    toolButtons
+        .get(ToolsType.FIGURE_COLOR.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                curBorderColor =
+                    JColorChooser.showDialog(null, "Choose figure color", curBorderColor);
+                ((JButton) e.getSource()).setForeground(curBorderColor);
+              }
+            });
+    toolButtons.get(ToolsType.VERTEX.ordinal())
+        .addActionListener(
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                VertexDialog vertexDialog=new VertexDialog(owner,vertexNum);
+                vertexDialog.setVisible(true);
+                vertexNum=vertexDialog.getVertexNum();
+              }
+            });
+    figureJList.addListSelectionListener(
+        new ListSelectionListener() {
           @Override
-          public void actionPerformed(ActionEvent e) {
-            curBorderColor = JColorChooser.showDialog(null, "Choose border color", curBorderColor);
-            borderColorButton.setForeground(curBorderColor);
+          public void valueChanged(ListSelectionEvent e) {
+            if (selectedFigure != null) {
+              setLayer(selectedFigure, 2, 0);
+            }
+            if (figureJList.getSelectedValue() != null) {
+              setLayer(figureJList.getSelectedValue(), 3, 1);
+              selectedFigure = figureJList.getSelectedValue();
+            }
           }
         });
-    figureColorButton.addActionListener(
-        new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            curFigureColor = JColorChooser.showDialog(null, "Choose figure color", curFigureColor);
-            figureColorButton.setForeground(curFigureColor);
-          }
-        });
+    figureJList.setCellRenderer(new DefaultListCellRenderer(){
+      public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
+        Component c = super.getListCellRendererComponent( list, value, index, isSelected, cellHasFocus );
+        c.setBackground(((Figure)value).getBorderColor());
+        return c;
+      }
+    });
     addMouseListener(
         new MouseAdapter() {
           @Override
@@ -245,40 +383,10 @@ public class DrawingPane extends JLayeredPane {
         });
   }
 
-  private void initDrawingPanel() {
+  // getters and setters
 
-  }
 
-  private void initAdapters() {
-    motionAdapter = new FigureMotionAdapter();
-    mouseAdapter = new FigureMouseAdapter(this);
-  }
-
-  public void initFiguresPanel() {
-    figureButtons = new ArrayList<>();
-    figuresPanel = new JPanel(new GridLayout(FIGURES_PANEL_ROWS_NUM, FIGURES_PANEL_COLS_NUM));
-    JButton figureButton;
-    for (FigureType figureType : FigureType.values()) {
-      figureButton = new JButton(figureType.name());
-      figuresPanel.add(figureButton);
-      figureButtons.add(figureButton);
-    }
-
-    figuresPanel.add(deleteFigureButton);
-    figuresPanel.add(borderColorButton);
-    figuresPanel.add(figureColorButton);
-
-    figuresPanel.setBackground(new Color(10, 10, 10));
-    figuresPanel.setBounds(0, 0, WINDOW_WIDTH / 5, WINDOW_HEIGHT);
-    add(figuresPanel);
-  }
-
-  private void initToolsPanelButtons() {
-    borderColorButton = new JButton("Border");
-    figureColorButton = new JButton("Figure");
-    deleteFigureButton = new JButton("Delete");
-
-    borderColorButton.setForeground(curBorderColor);
-    figureColorButton.setForeground(curFigureColor);
+  public Figure getSelectedFigure() {
+    return selectedFigure;
   }
 }

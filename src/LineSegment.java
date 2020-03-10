@@ -5,20 +5,15 @@ import java.awt.Point;
 public class LineSegment extends Figure1D {
   // fields
 
-  private Point aPoint;
+  private Point firstPoint;
 
-  private Point bPoint;
+  private Point secondPoint;
   // constructors
 
-  public LineSegment(Point refPoint, Point defPoint, Color borderColor) {
-    super(refPoint, defPoint, borderColor);
-    if (refPoint.equals(getRefPoint()) || refPoint.equals(defPoint)) {
-      aPoint = new Point(0, 0);
-      bPoint = new Point(getDefPoint().x - getRefPoint().x, getDefPoint().y - getRefPoint().y);
-    } else {
-      aPoint = new Point(0, getDefPoint().y - getRefPoint().y);
-      bPoint = new Point(getDefPoint().x - getRefPoint().x, 0);
-    }
+  public LineSegment(Point firstPoint, Point secondPoint, Color borderColor) {
+    super(firstPoint, secondPoint, borderColor);
+    this.firstPoint=firstPoint;
+    this.secondPoint=secondPoint;
   }
 
   // methods
@@ -27,13 +22,36 @@ public class LineSegment extends Figure1D {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.setColor(getBorderColor());
-    g.drawLine(aPoint.x, aPoint.y, bPoint.x, bPoint.y);
+    g.drawLine(firstPoint.x-getRefPoint().x, firstPoint.y-getRefPoint().y, secondPoint.x-getRefPoint().x, secondPoint.y-getRefPoint().y);
     g.setColor(getBorderColor());
     g.drawRect(
         0,
         0,
         Math.abs(getDefPoint().x - getRefPoint().x),
         Math.abs(getDefPoint().y - getRefPoint().y));
+  }
+
+  @Override
+  public String toString() {
+    return "Line segment";
+  }
+
+  // getters and setters
+
+  public Point getFirstPoint() {
+    return firstPoint;
+  }
+
+  public void setFirstPoint(Point firstPoint) {
+    this.firstPoint = firstPoint;
+  }
+
+  public Point getSecondPoint() {
+    return secondPoint;
+  }
+
+  public void setSecondPoint(Point secondPoint) {
+    this.secondPoint = secondPoint;
   }
 }
 
