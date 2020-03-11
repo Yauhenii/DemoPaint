@@ -21,11 +21,16 @@ public class Oval extends Figure2D {
         Math.abs(getDefPoint().x - getRefPoint().x),
         Math.abs(getDefPoint().y - getRefPoint().y));
     g.setColor(getFigureColor());
-    g.drawRect(
+    g.drawOval(
         0,
         0,
         Math.abs(getDefPoint().x - getRefPoint().x),
         Math.abs(getDefPoint().y - getRefPoint().y));
+//    g.drawRect(
+//        0,
+//        0,
+//        Math.abs(getDefPoint().x - getRefPoint().x),
+//        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override

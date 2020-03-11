@@ -29,11 +29,11 @@ public class Polyline extends Figure1D {
     g.setColor(getBorderColor());
     g.drawPolyline(x, y, size);
     g.setColor(getBorderColor());
-    g.drawRect(
-        0,
-        0,
-        Math.abs(getDefPoint().x - getRefPoint().x),
-        Math.abs(getDefPoint().y - getRefPoint().y));
+//    g.drawRect(
+//        0,
+//        0,
+//        Math.abs(getDefPoint().x - getRefPoint().x),
+//        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   // getters and setters

@@ -28,11 +28,11 @@ public class LineSegment extends Figure1D {
         secondPoint.x - getRefPoint().x,
         secondPoint.y - getRefPoint().y);
     g.setColor(getBorderColor());
-    g.drawRect(
-        0,
-        0,
-        Math.abs(getDefPoint().x - getRefPoint().x),
-        Math.abs(getDefPoint().y - getRefPoint().y));
+//    g.drawRect(
+//        0,
+//        0,
+//        Math.abs(getDefPoint().x - getRefPoint().x),
+//        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override

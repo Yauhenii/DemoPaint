@@ -27,11 +27,11 @@ public class StraightLine extends Ray {
     g.drawLine(
         getFirstPoint().x-dX, getFirstPoint().y-dY, getSecondPoint().x + dX, getSecondPoint().y + dY);
     g.setColor(getBorderColor());
-    g.drawRect(
-        0,
-        0,
-        Math.abs(getDefPoint().x - getRefPoint().x),
-        Math.abs(getDefPoint().y - getRefPoint().y));
+//    g.drawRect(
+//        0,
+//        0,
+//        Math.abs(getDefPoint().x - getRefPoint().x),
+//        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override

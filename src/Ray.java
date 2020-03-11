@@ -27,11 +27,11 @@ public class Ray extends LineSegment {
     g.drawLine(
         getFirstPoint().x, getFirstPoint().y, getSecondPoint().x + dX, getSecondPoint().y + dY);
     g.setColor(getBorderColor());
-    g.drawRect(
-        0,
-        0,
-        Math.abs(getDefPoint().x - getRefPoint().x),
-        Math.abs(getDefPoint().y - getRefPoint().y));
+//    g.drawRect(
+//        0,
+//        0,
+//        Math.abs(getDefPoint().x - getRefPoint().x),
+//        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override

@@ -21,7 +21,7 @@ public class FigureMouseAdapter extends MouseAdapter {
     super.mouseClicked(e);
     Figure figure=(Figure)e.getComponent();
     if (owner.getClickedPoints() != null) {
-      owner.getClickedPoints().add(new Point(figure.getRefPoint().x+e.getX(), figure.getRefPoint().y+e.getY()));
+      owner.getClickedPoints().add(new Point(figure.getX()+e.getX(), figure.getY()+e.getY()));
     }
 
   }
