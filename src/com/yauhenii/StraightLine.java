@@ -1,8 +1,12 @@
+package com.yauhenii;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
-public class Ray extends LineSegment {
+public class StraightLine extends Ray {
   // consts
 
   private final int WINDOW_WIDTH = 800;
@@ -10,7 +14,7 @@ public class Ray extends LineSegment {
 
   // constructors
 
-  public Ray(Point refPoint, Point defPoint, Color borderColor) {
+  public StraightLine(Point refPoint, Point defPoint, Color borderColor) {
     super(refPoint, defPoint, borderColor);
     setRefPoint(new Point(0, 0));
     setDefPoint(new Point(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -25,17 +29,21 @@ public class Ray extends LineSegment {
     int dY = 10 * (getSecondPoint().y - getFirstPoint().y);
     g.setColor(getBorderColor());
     g.drawLine(
-        getFirstPoint().x, getFirstPoint().y, getSecondPoint().x + dX, getSecondPoint().y + dY);
+        getFirstPoint().x - dX,
+        getFirstPoint().y - dY,
+        getSecondPoint().x + dX,
+        getSecondPoint().y + dY);
     g.setColor(getBorderColor());
-//    g.drawRect(
-//        0,
-//        0,
-//        Math.abs(getDefPoint().x - getRefPoint().x),
-//        Math.abs(getDefPoint().y - getRefPoint().y));
+    ((Graphics2D) g).setStroke(new BasicStroke(getBorderWidth()));
+    //    g.drawRect(
+    //        0,
+    //        0,
+    //        Math.abs(getDefPoint().x - getRefPoint().x),
+    //        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override
   public String toString() {
-    return "Ray";
+    return "Straight line";
   }
 }

@@ -1,3 +1,5 @@
+package com.yauhenii;
+
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -15,7 +17,6 @@ public class Triangle extends Polygon {
   }
 
   // methods
-
 
   @Override
   public String toString() {

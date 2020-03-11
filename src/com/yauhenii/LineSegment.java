@@ -1,5 +1,9 @@
+package com.yauhenii;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 public class LineSegment extends Figure1D {
@@ -22,17 +26,18 @@ public class LineSegment extends Figure1D {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.setColor(getBorderColor());
+    ((Graphics2D) g).setStroke(new BasicStroke(getBorderWidth()));
     g.drawLine(
         firstPoint.x - getRefPoint().x,
         firstPoint.y - getRefPoint().y,
         secondPoint.x - getRefPoint().x,
         secondPoint.y - getRefPoint().y);
-    g.setColor(getBorderColor());
-//    g.drawRect(
-//        0,
-//        0,
-//        Math.abs(getDefPoint().x - getRefPoint().x),
-//        Math.abs(getDefPoint().y - getRefPoint().y));
+    //    g.setColor(getBorderColor());
+    //    g.drawRect(
+    //        0,
+    //        0,
+    //        Math.abs(getDefPoint().x - getRefPoint().x),
+    //        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override
@@ -50,4 +55,3 @@ public class LineSegment extends Figure1D {
     return secondPoint;
   }
 }
-

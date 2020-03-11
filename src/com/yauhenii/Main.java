@@ -1,3 +1,5 @@
+package com.yauhenii;
+
 public class Main {
 
   public static void main(String[] args) {

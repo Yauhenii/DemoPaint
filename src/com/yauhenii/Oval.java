@@ -1,5 +1,9 @@
+package com.yauhenii;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 public class Oval extends Figure2D {
@@ -21,16 +25,17 @@ public class Oval extends Figure2D {
         Math.abs(getDefPoint().x - getRefPoint().x),
         Math.abs(getDefPoint().y - getRefPoint().y));
     g.setColor(getFigureColor());
+    ((Graphics2D) g).setStroke(new BasicStroke(getBorderWidth()));
     g.drawOval(
-        0,
-        0,
-        Math.abs(getDefPoint().x - getRefPoint().x),
-        Math.abs(getDefPoint().y - getRefPoint().y));
-//    g.drawRect(
-//        0,
-//        0,
-//        Math.abs(getDefPoint().x - getRefPoint().x),
-//        Math.abs(getDefPoint().y - getRefPoint().y));
+        1,
+        1,
+        Math.abs(getDefPoint().x - getRefPoint().x - getBorderWidth() + 1),
+        Math.abs(getDefPoint().y - getRefPoint().y - getBorderWidth() + 1));
+    //    g.drawRect(
+    //        0,
+    //        0,
+    //        Math.abs(getDefPoint().x - getRefPoint().x),
+    //        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   @Override

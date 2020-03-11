@@ -1,5 +1,5 @@
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+package com.yauhenii;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

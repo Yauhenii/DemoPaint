@@ -1,5 +1,9 @@
+package com.yauhenii;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -13,10 +17,7 @@ public class Polyline extends Figure1D {
   // constructors
 
   public Polyline(
-      Point refPoint,
-      Point defPoint,
-      ArrayList<Point> auxiliaryPoints,
-      Color borderColor) {
+      Point refPoint, Point defPoint, ArrayList<Point> auxiliaryPoints, Color borderColor) {
     super(refPoint, defPoint, borderColor);
     setAuxiliaryPoints(auxiliaryPoints);
   }
@@ -27,13 +28,14 @@ public class Polyline extends Figure1D {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     g.setColor(getBorderColor());
+    ((Graphics2D) g).setStroke(new BasicStroke(getBorderWidth()));
     g.drawPolyline(x, y, size);
-    g.setColor(getBorderColor());
-//    g.drawRect(
-//        0,
-//        0,
-//        Math.abs(getDefPoint().x - getRefPoint().x),
-//        Math.abs(getDefPoint().y - getRefPoint().y));
+    //    g.setColor(getBorderColor());
+    //    g.drawRect(
+    //        0,
+    //        0,
+    //        Math.abs(getDefPoint().x - getRefPoint().x),
+    //        Math.abs(getDefPoint().y - getRefPoint().y));
   }
 
   // getters and setters

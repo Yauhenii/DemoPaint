@@ -1,7 +1,7 @@
+package com.yauhenii;
+
 import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public abstract class Figure2D extends Figure {
   // fields
@@ -15,7 +15,6 @@ public abstract class Figure2D extends Figure {
     this.figureColor = figureColor;
   }
 
-
   // getters and setters
 
   public Color getFigureColor() {
@@ -25,5 +24,4 @@ public abstract class Figure2D extends Figure {
   public void setFigureColor(Color figureColor) {
     this.figureColor = figureColor;
   }
-
 }

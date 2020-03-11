@@ -1,3 +1,6 @@
+package com.yauhenii;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Point;
 import javax.swing.JPanel;
@@ -10,6 +13,8 @@ public abstract class Figure extends JPanel {
   private Point defPoint;
 
   private Color borderColor;
+
+  private int borderWidth = 3;
 
   // constructors
 
@@ -69,5 +74,13 @@ public abstract class Figure extends JPanel {
 
   public void setBorderColor(Color borderColor) {
     this.borderColor = borderColor;
+  }
+
+  public int getBorderWidth() {
+    return borderWidth;
+  }
+
+  public void setBorderWidth(int borderWidth) {
+    this.borderWidth = borderWidth;
   }
 }

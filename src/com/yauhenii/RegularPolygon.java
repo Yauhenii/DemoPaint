@@ -1,13 +1,20 @@
+package com.yauhenii;
+
 import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
 public class RegularPolygon extends Polygon {
+  // fields
+
+  int n;
+
   // constructors
 
   public RegularPolygon(
       Point firstPoint, Point secondPoint, int n, Color borderColor, Color figureColor) {
     super(firstPoint, secondPoint, null, borderColor, figureColor);
+    this.n = n;
     int radius =
         (int)
             Math.sqrt(
@@ -47,6 +54,6 @@ public class RegularPolygon extends Polygon {
 
   @Override
   public String toString() {
-    return "Regular polygon";
+    return "Regular polygon " + Integer.toString(n);
   }
 }
